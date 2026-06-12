@@ -1,0 +1,55 @@
+function calcularConsumo() {
+    // Captura dos valores dos inputs do HTML
+    const tempoBanho = parseFloat(document.getElementById('banho').value) || 0;
+    const tempoTorneira = parseFloat(document.getElementById('torneira').value) || 0;
+    const vezesDescarga = parseInt(document.getElementById('descarga').value) || 0;
+    const tipoLavagem = document.getElementById('lavagem').value;
+
+    // Médias de consumo aproximadas baseadas em dados de saneamento:
+    // Banho: ~9 litros por minuto
+    // Torneira: ~12 litros por minuto
+    // Descarga: ~6 litros por acionamento
+    const gastoBanho = tempoBanho * 9;
+    const gastoTorneira = tempoTorneira * 12;
+    const gastoDescarga = vezesDescarga * 6;
+    
+    let gastoLavagem = 0;
+    if (tipoLavagem === 'manual-aberta') gastoLavagem = 60; // Média diária com torneira aberta
+    if (tipoLavagem === 'manual-economica') gastoLavagem = 20;
+    if (tipoLavagem === 'maquina') gastoLavagem = 12;
+
+    // Cálculo total Diário e Mensal consumido atualmente
+    const totalDiario = gastoBanho + gastoTorneira + gastoDescarga + gastoLavagem;
+    const totalMensal = totalDiario * 30;
+
+    // Cálculo de Economia Otimizada (Meta sustentável sugerida)
+    // Exemplo de meta: Reduzir banho para no máximo 5 min, torneira aberta por no máximo 2 min.
+    const metaBanho = (tempoBanho > 5 ? 5 : tempoBanho) * 9;
+    const metaTorneira = (tempoTorneira > 2 ? 2 : tempoTorneira) * 12;
+    const metaLavagem = (tipoLavagem === 'manual-aberta') ? 20 : gastoLavagem; 
+    
+    const totalMetaDiaria = metaBanho + metaTorneira + gastoDescarga + metaLavagem;
+    const totalMetaMensal = totalMetaDiaria * 30;
+    
+    // Calcula a diferença economizada
+    const economiaMensal = Math.max(0, totalMensal - totalMetaMensal);
+
+    // Injetar os resultados calculados de volta no HTML
+    document.getElementById('gasto-diario').innerText = `${totalDiario.toFixed(0)} Litros`;
+    document.getElementById('gasto-mensal').innerText = `${totalMensal.toLocaleString('pt-BR')} Litros`;
+    document.getElementById('economia-mensal').innerText = `${economiaMensal.toLocaleString('pt-BR')} Litros`;
+
+    // Gerar uma Dica/Mensagem personalizada com base nos hábitos informados
+    let dica = "";
+    if (tempoBanho > 8) {
+        dica = "💡 Dica: Reduzir o seu banho para 5 minutos pode economizar dezenas de litros todos os dias!";
+    } else if (tipoLavagem === 'manual-aberta') {
+        dica = "💡 Dica: Fechar a torneira enquanto ensaboa a louça reduz o gasto desse hábito em até 70%!";
+    } else {
+        dica = "🌱 Parabéns! Seus hábitos já demonstram grande consciência no uso da água.";
+    }
+    document.getElementById('dica-sustentavel').innerText = dica;
+
+    // Mostra o quadro de resultado adicionando a classe CSS 'show'
+    document.getElementById('resultado').classList.add('show');
+}
