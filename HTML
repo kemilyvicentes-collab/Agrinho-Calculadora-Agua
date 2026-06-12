@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Consumo de Água</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora de Água 💧</h1>
+        <p class="description">Descubra o seu consumo diário baseado nos seus hábitos e veja como pequenas mudanças ajudam o planeta.</p>
+
+        <div class="form-group">
+            <label for="banho">Tempo médio no banho (minutos):</label>
+            <input type="number" id="banho" min="0" placeholder="Ex: 10" value="10">
+        </div>
+
+        <div class="form-group">
+            <label for="torneira">Tempo com a torneira aberta escovando dentes/lavando louça (minutos):</label>
+            <input type="number" id="torneira" min="0" placeholder="Ex: 5" value="5">
+        </div>
+
+        <div class="form-group">
+            <label for="descarga">Quantas vezes aciona a descarga por dia?</label>
+            <input type="number" id="descarga" min="0" placeholder="Ex: 4" value="4">
+        </div>
+
+        <div class="form-group">
+            <label for="lavagem">Como lava as louças principais?</label>
+            <select id="lavagem">
+                <option value="manual-aberta">Na pia, com a torneira aberta direto</option>
+                <option value="manual-economica">Na pia, fechando a torneira ao ensaboar</option>
+                <option value="maquina">Máquina de lavar louça</option>
+            </select>
+        </div>
+
+        <button onclick="calcularConsumo()">Calcular Consumo</button>
+
+        <div class="result-box" id="resultado">
+            <h2>Seu Relatório de Consumo</h2>
+            
+            <div class="result-item">
+                <span>Gasto diário estimado:</span>
+                <span class="value" id="gasto-diario">0 Litros</span>
+            </div>
+            
+            <div class="result-item">
+                <span>Gasto mensal estimado:</span>
+                <span class="value" id="gasto-mensal">0 Litros</span>
+            </div>
+
+            <div class="result-item economy">
+                <span>Sua economia potencial por mês:*</span>
+                <span class="value" id="economia-mensal">0 Litros</span>
+            </div>
+
+            <p class="tip" id="dica-sustentavel"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
